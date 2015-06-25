@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # hostsManager
 A project-centered host control
 =======
@@ -69,4 +68,3 @@ There are different ways to use the hoster to create and keep your applications'
 5. After setup is complete the host should be applied..
 
     ```$ hoster apply --dev```
->>>>>>> Separate projects
