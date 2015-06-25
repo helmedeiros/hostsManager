@@ -1,6 +1,3 @@
-# hostsManager
-A project-centered host control
-=======
 About
 =====
 
