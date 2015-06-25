@@ -1,0 +1,69 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>hoster</groupId>
+    <artifactId>hoster</artifactId>
+    <version>1.7.2-IURI</version>
+
+    <name>Hoster</name>
+    <url>https://github.com/helmedeiros/hoster</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+	
+
+    <build>
+        <finalName>maven-assembly-plugin</finalName>
+		<plugins>
+			<!-- The configuration of maven-assembly-plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.4</version>
+				<!-- The configuration of the plugin -->
+				<configuration>
+					<!-- Specifies the configuration file of the assembly plugin -->
+					<descriptors>
+						<descriptor>Library/Build/assembly.xml</descriptor>
+					</descriptors>
+					<outputDirectory>bin</outputDirectory>
+					<finalName>${project.artifactId}-${project.version}</finalName>
+                </configuration>
+				<executions>
+					<execution>
+						<id>assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+            </plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>shell-maven-plugin</artifactId>
+				<version>1.0-beta-1</version>
+				<executions>
+					<execution>
+						<id>assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>shell</goal>
+						</goals>
+						<configuration>
+							<workDir>${workDir}../../</workDir>
+							<chmod>true</chmod>
+							<keepScriptFile>false</keepScriptFile>
+							<script>
+								echo "${project.version}" > hoster.version
+								openssl sha1 ./bin/${project.artifactId}-${project.version}-as.tar.gz > ./bin/${project.artifactId}-${project.version}.checksum
+							</script>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+        </plugins>
+    </build>
+</project>
